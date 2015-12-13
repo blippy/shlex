@@ -5,13 +5,14 @@ let print_results results =
       
 let inner =
   let lexbuf = Lexing.from_channel stdin in
-
-  while true do
+  try
+    while true do
       print_string "looping\n";
       let result = Parser.main Lexer.token lexbuf in print_results result;
-
       print_newline(); flush stdout
-  done
+    done
+  with Lexer.Eof ->
+    exit 0
 ;;
 
     (*

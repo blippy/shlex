@@ -3,6 +3,7 @@ open List
 %}
 %token EOF
 %token EOL
+%token <string> DQSTR
 %token <string> STR
 %start main
 %type  <string list> main
@@ -13,7 +14,11 @@ main:
   | EOF { ["Im done"] }
 
 ;
+str:
+  STR { $1 }
+  | DQSTR { $1 }
+  
 strings:
-   STR { [$1] }
-   |  strings STR { append $1 [$2] }
+   str { [$1] }
+   |  strings str { append $1 [$2] }
 ;   
