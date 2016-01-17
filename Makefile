@@ -10,7 +10,8 @@ clean :
 	rm -f $(BIN) lexer.ml parser.ml parser.mli *.cmi *.cmo
 
 
-parser.ml parser.mli : parser.mly lexer.ml
+#parser.ml parser.mli : parser.mly lexer.ml
+parser.ml parser.mli : parser.mly
 	ocamlyacc parser.mly
 
 

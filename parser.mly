@@ -9,11 +9,16 @@ open List
 %type  <string list> main
 %%
 main:
-  strings EOF { $1 }
-  | strings EOL { $1 }
-  | EOF { ["Im done"] }
+  strings eox { $1 }
+  | eox { [] }
+
 
 ;
+
+eox:
+  EOF {} | EOL {}
+
+  
 str:
   STR { $1 }
   | DQSTR { $1 }
