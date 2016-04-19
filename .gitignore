@@ -12,6 +12,7 @@ compile
 config.log
 config.status
 configure
+depcomp
 install-sh
 missing
 src/Makefile

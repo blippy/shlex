@@ -8,6 +8,10 @@ using std::cout;
 using std::endl;
 using std::vector;
 using std::string;
+
+#include "shlex.tab.h"
+#define YY_DECL extern "C" int yylex()
+
 %}
 
 
