@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
 PATH=../src:$PATH
 
-shlex <in/in01.txt
+run () {
+	echo "====================================================="
+	echo "Running input: $1"
+	shlex <$1
+	echo "Run finished"
+	echo
+}
+
+run in/in01.txt
+run in/in02.txt

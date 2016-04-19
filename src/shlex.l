@@ -19,6 +19,10 @@ using std::string;
 
 %%
 
+"\r\n"|"\n" 
+
+"#".*$   { printf("Comment: <%s>\n", yytext); } /* eat */ 
+
 \"([^\\\"]|\\.)*\"  { yylval.str = yytext; return QSTR; }
 
 %%
