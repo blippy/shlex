@@ -5,7 +5,7 @@ AC_CONFIG_SRCDIR([src/shlex.l])
 
 # foreign flag tells that we are not conforming to the GNU standards
 # and hence can ommit NEWS, README, COPYING
-AM_INIT_AUTOMAKE([-ggdb foreign]) 
+AM_INIT_AUTOMAKE([foreign]) 
 
 
 
