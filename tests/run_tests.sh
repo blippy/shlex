@@ -9,5 +9,11 @@ run () {
 	echo
 }
 
-run in/in01.txt
-run in/in02.txt
+for i in 01 02 03 04 05 
+do
+	run in/in$i.txt
+done
+#run in/in01.txt
+#run in/in02.txt
+#run in/in03.txt
+#run in/in04.txt
