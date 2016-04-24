@@ -11,8 +11,16 @@ shlex.yy.c : shlex.l shlex.tab.h
 shlex.tab.c shlex.tab.h : shlex.y
 	bison -d $<
 
-shlex$(EXEEXT) : shlex.tab.c shlex.yy.c
-	$(CXX) $(STD) -D shlex_y_main=main $^ -o $@
+#shlex$(EXEEXT) : shlex.tab.c shlex.yy.c
+#	$(CXX) $(STD) -D shlex_y_main=main $^ -o $@
+
+
+shlex.o : shlex.cc
+	$(CXX) $(STD) -c $<
+
+shlex$(EXEEXT) : shlex.o shlex.tab.c shlex.yy.c
+#shlex$(EXEEXT) : shlex.tab.c shlex.yy.c shlex.o
+	$(CXX) $(STD)  -o $@ $^  -lfl
 
 
 test_lex$(EXEEXT) : shlex.yy.c
