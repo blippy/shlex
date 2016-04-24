@@ -1,7 +1,7 @@
 AC_PREREQ([2.69])
 AC_INIT([shlex], [0.0.0])
 
-AC_CONFIG_SRCDIR([src/shlex.l])
+AC_CONFIG_SRCDIR([src/shlex.cc])
 
 # foreign flag tells that we are not conforming to the GNU standards
 # and hence can ommit NEWS, README, COPYING
