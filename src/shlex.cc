@@ -103,7 +103,7 @@ void get_period(std::string &start, std::string &end)
 
 
 
-shlexmat vecvec(std::istream  &istr)
+shlexmat read(std::istream  &istr)
 {
 	shlexmat res;
 	std::string line;
@@ -115,18 +115,18 @@ shlexmat vecvec(std::istream  &istr)
 }
 
 
-shlexmat vecvec(std::string  &filename)
+shlexmat read(std::string  &filename)
 {
 	std::ifstream fin;
 	fin.open(filename.c_str(), std::ifstream::in);
-	shlexmat res  = vecvec(fin);
+	shlexmat res  = read(fin);
 	fin.close();
 	return res;
 }
 
 
 //void prin_vecvec(vecvec_t & vvs, const char *sep = "\t", const char *recsep= "\n", const char *filename = "")
-void prin_vecvec(shlexmat & vvs, const char *sep, const char *recsep, const char *filename )
+void prin_vecvec(const shlexmat & vvs, const char *sep, const char *recsep, const char *filename )
 {
 	/*
 	ostream *fp= &cout;
@@ -166,15 +166,12 @@ void prin_vecvec(shlexmat & vvs, const char *sep, const char *recsep, const char
 }
 
 
-void prin_vecvec1i(shlexmat &vv)
-{
-	prin_vecvec(vv, "\n", "\n", "");
-}
+void write(const shlexmat &m) { prin_vecvec(m, "\n", "\n", ""); }
 
-shlexmat vecvec(const char *fname)
+shlexmat read(const char *fname)
 {
 	std::string fn = (fname);
-	return vecvec(fn);
+	return read(fn);
 }
 
 
