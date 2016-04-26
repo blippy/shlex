@@ -14,7 +14,7 @@ PKG_PROG_PKG_CONFIG
 PKG_INSTALLDIR
 
 
-AC_PROG_CC
+AC_PROG_CXX
 
 #AC_PROG_FC([gfortran], [Fortran 90]) # we need a Fortran 90 compiler
 # If we are using gfortran, but user hasn't set FCFLAGS for 'configure'
@@ -29,7 +29,7 @@ AC_PROG_RANLIB # needed to create libraries
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 # Generate a PC file so that others can easily detect our libraries:
-#AC_CONFIG_FILES([datetime-fortran.pc:datetime-fortran.pc.in])
+AC_CONFIG_FILES([shlex.pc:shlex.pc.in])
 
 
 AC_OUTPUT

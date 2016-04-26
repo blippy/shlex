@@ -1,37 +1,26 @@
-bin_PROGRAMS = shlex #test_lex
+bin_PROGRAMS = shlex 
+shlex_SOURCES = main.cc
+shlex_LDADD = libshlex.a
+lib_LIBRARIES = libshlex.a
 
-STD = -std=gnu++11 -ggdb
+libshlex_a_SOURCES = shlex.cc
+
+AM_CXXFLAGS = -std=gnu++11 
 
 #BUILT_SOURCES = shlex.yy.c shlex.tab.c
 BUILT_SOURCES = shlex.pch
 CLEANFILES = $(BUILT_SOURCES)
 
-#shlex.yy.c : shlex.l shlex.tab.h
-#	flex   --outfile=$@ shlex.l
-
-#shlex.tab.c shlex.tab.h : shlex.y
-#	bison -d $<
-
-#shlex$(EXEEXT) : shlex.tab.c shlex.yy.c
-#	$(CXX) $(STD) -D shlex_y_main=main $^ -o $@
-
-
 shlex.pch : shlex.hpp
 	$(CXX) -o $@ $<
 
-shlex.o : shlex.cc shlex.pch
-	$(CXX) $(STD) -c $<
-
-#shlex$(EXEEXT) : shlex.o shlex.tab.c shlex.yy.c
-#shlex$(EXEEXT) : shlex.tab.c shlex.yy.c shlex.o
-#	$(CXX) $(STD)  -o $@ $^  -lfl
+#shlex.o : shlex.cc shlex.pch
+#	$(CXX) $(STD) -c $<
 
 
-main.o : main.cc
-	$(CXX) $(STD) -c $<
+#main.o : main.cc
+#	$(CXX) $(STD) -c $<
 
-shlex$(EXEXT) : main.o shlex.o
-	$(CXX) $(STD) -o $@ $^
+#shlex$(EXEXT) : main.o shlex.o
+#	$(CXX) $(STD) -o $@ $^
 
-#test_lex$(EXEEXT) : shlex.yy.c
-#	$(CXX) $(STD) -D main_lex=main  $< -o $@
