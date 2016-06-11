@@ -34,7 +34,7 @@ std::string trim(std::string& str)
     return str.substr(first, (last-first+1));
 }
 
-std::vector<std::string> tokenize_line(std::string &input) //, const char sep= ' ')
+std::vector<std::string> tokenize_line(const std::string &input, const options &opts)
 {
 	std::vector<std::string> output;
 	std::string trimmed = input;
@@ -44,7 +44,6 @@ std::vector<std::string> tokenize_line(std::string &input) //, const char sep= '
 loop:
 	trimmed = trim(trimmed);
 	if(trimmed.length() == 0) goto fin;
-	//cout << "len = " << trimmed.length() << endl;
 	if(trimmed[0] == '#') goto fin;
 	if(trimmed[0] == '"') {
 		token = "";
@@ -55,7 +54,7 @@ loop:
 				trimmed = trimmed.substr(i+1);
 				goto loop;
 			case ' ':
-				token += '_' ; //167 ; // 26; // so that fields work
+				token += opts.sep; // '_' ; //167 ; // 26; // so that fields work
 				break;
 			default :
 				token += trimmed[i];
@@ -82,44 +81,26 @@ fin:
 	return output;
 }
 
-/*
-void get_period(std::string &start, std::string &end)
-{
-	ifstream fin;
-	fin.open("s1/period.dsv", ifstream::in);
-	string line;
-
-	start = "0000-01-01";
-	end   = "3000-12-31";
-	while(getline(fin, line)) {
-		vector<string> fields = tokenize_line(line);
-		start = fields[0];
-		end = fields[1];
-	}
-
-	//cerr << start << " " << end << endl ;
-}
-*/
 
 
 
-shlexmat read(std::istream  &istr)
+shlexmat read(std::istream  &istr, const options& opts)
 {
 	shlexmat res;
 	std::string line;
 	while(getline(istr, line)) {
-		std::vector<std::string> fields = tokenize_line(line);
+		std::vector<std::string> fields = tokenize_line(line, opts);
 		if(fields.size() >0) res.push_back(fields);
 	}
 	return res;
 }
 
 
-shlexmat read(std::string  &filename)
+shlexmat read(std::string  &filename, const options& opts)
 {
 	std::ifstream fin;
 	fin.open(filename.c_str(), std::ifstream::in);
-	shlexmat res  = read(fin);
+	shlexmat res  = read(fin, opts);
 	fin.close();
 	return res;
 }
@@ -168,48 +149,12 @@ void prin_vecvec(const shlexmat & vvs, const char *sep, const char *recsep, cons
 
 void write(const shlexmat &m) { prin_vecvec(m, "\n", "\n", ""); }
 
-shlexmat read(const char *fname)
+shlexmat read(const char *fname, const options& opts)
 {
 	std::string fn = (fname);
-	return read(fn);
+	return read(fn, opts);
 }
 
 
-/*
-int shlex_main()
-{
-	puts("TODO");
-	return EXIT_SUCCESS;
-}
-*/
-
-//#include <math.h>
-//#include <stdio.h>
-
-
-/*
-double bround(double x) 
-{
-  double c ,f, det;
-  c = ceil(x);
-  f = floor(x);
-
-  // eliminate strange artifacts of creating "negative 0"
-  if(c == 0) c = 0.0;
-  if(f == 0) f = 0.0;
-  // printf("c: %f ", c);
-
-
-  det = c + f - 2.0*x;
-  if (det < 0) {return c;}
-  if (det > 0) {return f;}
-
-  // banker's tie 
- if(2*ceil(c/2) == c) {return c;} else {return f;};
-
-}
-
-double round2(double x) { return bround(x*100)/100; }
-*/
 }
 

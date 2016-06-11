@@ -5,13 +5,18 @@
 #include <vector>
 namespace shlex {
 
+typedef struct options 
+{
+	std::string sep = " ";
+} options;
+
 typedef std::vector<std::vector<std::string> > shlexmat;
 
-shlexmat read(std::istream  &istr);
-shlexmat read(std::string  &filename);
-shlexmat read(const char *fname);
+shlexmat read(std::istream  &istr, const options& opts);
+shlexmat read(std::string  &filename, const options& opts);
+shlexmat read(const char *fname, const options& opts);
 
-std::vector<std::string> tokenize_line(std::string &input);
+std::vector<std::string> tokenize_line(const std::string &input, const options &opts);
 
 void write(const shlexmat &m);
 

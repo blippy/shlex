@@ -6,13 +6,8 @@
 
 int main()
 {
-	shlex::shlexmat mat = shlex::read(std::cin);
+	shlex::options opts; // go with default options initially
+	shlex::shlexmat mat = shlex::read(std::cin, opts);
 	shlex::write(mat);
-	/*
-	std::string line("hello world");
-	for( auto &s : shlex::tokenize_line(line)) {
-		std::cout << s << std::endl;
-	}
-	*/
 	return EXIT_SUCCESS;
 }
