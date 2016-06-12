@@ -1,6 +1,6 @@
 bin_PROGRAMS = shlex 
-shlex_SOURCES = main.cc
-shlex_LDADD = libshlex.a
+shlex_SOURCES = main.cc shlex.pch
+shlex_LDADD = libshlex.a -lboost_program_options
 lib_LIBRARIES = libshlex.a
 
 libshlex_a_SOURCES = shlex.cc

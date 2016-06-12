@@ -5,10 +5,12 @@ created 19-Feb-2016
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <string>
 #include <fstream>
 #include <iostream>
 #include <math.h>
 #include <memory>
+
 //#include <set>
 //#include <vector>
 
@@ -18,6 +20,7 @@ created 19-Feb-2016
 
 namespace shlex {
 
+//using namespace std::string_literals;
 //using namespace std;
 
 
@@ -147,7 +150,27 @@ void prin_vecvec(const shlexmat & vvs, const char *sep, const char *recsep, cons
 }
 
 
-void write(const shlexmat &m) { prin_vecvec(m, "\n", "\n", ""); }
+void write(const shlexmat &m, const options& opts) {
+	switch(opts.ofmt) {
+		case REG:
+		       	prin_vecvec(m, "\n", "\n", ""); 
+			break;
+		case M4:
+			for(auto& r:m) {
+				std::cout << r.at(0) << "(";
+				for(auto it = std::begin(r)+1; it != std::end(r); ++it) {
+					std::cout << "`" << *it << "'";
+					if(it < std::end(r)-1) std::cout << ", ";
+				}
+				std::cout << ")" << std::endl;
+			}
+			break;
+		default:
+			std::string msg("write() did not handle all ofmt case: ");
+			msg += opts.ofmt;
+			throw std::logic_error(msg);
+	}
+}
 
 shlexmat read(const char *fname, const options& opts)
 {
