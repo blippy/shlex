@@ -23,7 +23,7 @@ namespace shlex {
 //using namespace std::string_literals;
 //using namespace std;
 
-
+typedef std::vector<std::string> strings;
 
 	
 const char white[] = " \t\r";
@@ -150,20 +150,31 @@ void prin_vecvec(const shlexmat & vvs, const char *sep, const char *recsep, cons
 }
 
 
+void write_m4(const strings& r)
+{
+	if(r.size() ==0) return;
+
+	//		for(auto& r:m) {
+
+	std::cout << r.at(0);
+	if(r.size() > 1) {       
+		std::cout << "(";
+		for(auto it = std::begin(r)+1; it != std::end(r); ++it) {
+			std::cout << "`" << *it << "'";
+			if(it < std::end(r)-1) std::cout << ", ";
+		}
+		std::cout << ")";
+	}
+	std::cout << std::endl;
+}
+
 void write(const shlexmat &m, const options& opts) {
 	switch(opts.ofmt) {
 		case REG:
 		       	prin_vecvec(m, "\n", "\n", ""); 
 			break;
 		case M4:
-			for(auto& r:m) {
-				std::cout << r.at(0) << "(";
-				for(auto it = std::begin(r)+1; it != std::end(r); ++it) {
-					std::cout << "`" << *it << "'";
-					if(it < std::end(r)-1) std::cout << ", ";
-				}
-				std::cout << ")" << std::endl;
-			}
+			for(auto& r:m) write_m4(r);
 			break;
 		default:
 			std::string msg("write() did not handle all ofmt case: ");
